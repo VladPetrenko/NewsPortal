@@ -22,7 +22,7 @@ class Emitter {
         }
     }
 
-    notify(data, eventName) {
+    notify(eventName, data) {
         if (this._subscribers[eventName]) {
             this._subscribers[eventName].forEach((subscriber) => subscriber(data));
         }

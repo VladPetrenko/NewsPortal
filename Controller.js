@@ -19,13 +19,15 @@ let news3 = new News(3, 'adme', em);
 
 let news = [news1, news2, news3];
 
-/*em.subscribe(1, users[0].post);
+em.subscribe(1, users[0].post);
 em.subscribe(2, users[0].post);
 em.subscribe(3, users[0].post);
-*/
+
+
+
 news1.postMessage('it', 'this about it');
-news2.postMessage('future', 'what will wait us in the future');
-news3.postMessage('sfw', 'some things');
+news2.postMessage('future', 'what will wait us in the future', 2);
+news3.postMessage('sfw', 'some things', 3);
 
 class Controller {
 

@@ -29,9 +29,9 @@ function router(request, response) {
 
     } else if (request.method === 'GET' && portalUrl[1] === 'news') {
         if (portalUrl.length === 3) {
-            let user = ctrl.getNewsById(portalUrl[2]);
+            let news = ctrl.getNewsById(portalUrl[2]);
             response.writeHead(200, { "Content-Type": "application/json" });
-            response.end(JSON.stringify(user));
+            response.end(JSON.stringify(news));
         } else if (portalUrl[3] === 'subscribe') {
             ctrl.subscribe(portalUrl[4], portalUrl[2]);
             response.writeHead(200, 'OK');

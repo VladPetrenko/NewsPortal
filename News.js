@@ -8,10 +8,16 @@ class News {
         this._articles = [];
     }
 
+    
     postMessage(title, message) {
-        this._articles.push(title, message);
-        this._em.notify(this._id, { title: this._title, message, id: this._id });
+        setInterval(() => {
+            this._articles.push({title, message});
+            this._em.notify(this._id, { title: this._title, message, id: this._id });
+        }, 5000)
+        
     }
+
+
 }
 
 module.exports = News;
