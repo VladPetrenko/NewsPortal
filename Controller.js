@@ -19,15 +19,17 @@ let news3 = new News(3, 'adme', em);
 
 let news = [news1, news2, news3];
 
-em.subscribe(1, users[0].post);
+/*em.subscribe(1, users[0].post);
 em.subscribe(2, users[0].post);
-em.subscribe(3, users[0].post);
+em.subscribe(3, users[0].post);*/
 
+news1.postMessage();
+news2.postMessage();
+news3.postMessage();
 
-
-news1.postMessage('it', 'this about it');
+/*news1.postMessage('it', 'this about it');
 news2.postMessage('future', 'what will wait us in the future', 2);
-news3.postMessage('sfw', 'some things', 3);
+news3.postMessage('sfw', 'some things', 3);*/
 
 class Controller {
 
@@ -41,7 +43,7 @@ class Controller {
     getNewsById(id) {
         let newsId = news.find((news) => news._id == id);
         if (newsId) {
-            return newsId._articles;
+            return { id: newsId._id, title: newsId._title, articles: newsId._articles };
         }
     }
     getSubscriptions(id) {
@@ -51,26 +53,34 @@ class Controller {
         }
     }
 
-    export(id) {
-        //
+    export (id) {
+        let exp = this.getUserById(id);
+        fs.writeFile(`user${id}.json`, JSON.stringify(exp, null, 4), (err) => {
+            if (err) {
+                console.error(err);
+                return;
+            };
+            console.log("File has been created");
+
+        });
     }
 
 
     subscribe(userId, newsId) {
         let user = this.getUserById(userId);
         em.subscribe(newsId, user.post);
-        let x = news.find((news) => news._id == newsId);
-        user._subscriptions.push(x._title);
-
+        let portal = news.find((news) => news._id == newsId);
+        if (user._subscriptions = user._subscriptions.filter((sbscr) => sbscr !== portal._title)) {
+            user._subscriptions.push(portal._title);
+        }
     }
 
     unsubscribe(userId, newsId) {
         let user = this.getUserById(userId);
         em.unsubscribe(newsId, user.post);
-        let x = news.find((news) => news._id == newsId);
-        user._subscriptions = user._subscriptions.filter((sbscr) => sbscr !== x._title);
+        let portal = news.find((news) => news._id == newsId);
+        user._subscriptions = user._subscriptions.filter((sbscr) => sbscr !== portal._title);
     }
-
 }
 
 module.exports = Controller;

@@ -8,11 +8,13 @@ class News {
         this._articles = [];
     }
 
-    
-    postMessage(title, message) {
+    //postMessage(title, message)
+    postMessage() {
         setInterval(() => {
+            let title = Math.random().toString(36).substr(2, 5);
+            let message = Math.random().toString(36).substr(0, 15);
             this._articles.push({title, message});
-            this._em.notify(this._id, { title: this._title, message, id: this._id });
+            this._em.notify(this._id, { title: title, message, news_id: this._id });
         }, 5000)
         
     }
