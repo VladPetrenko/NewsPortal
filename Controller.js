@@ -53,14 +53,24 @@ class Controller {
         }
     }
 
-    export (id) {
+    export (id, response) {
         let exp = this.getUserById(id);
-        fs.writeFile(`user${id}.json`, JSON.stringify(exp, null, 4), (err) => {
+        let expName = `user${id}.json`;
+        fs.writeFile(`${expName}`, JSON.stringify(exp, null, 4), (err) => {
             if (err) {
                 console.error(err);
-                return;
+                response.end();
+                //return;
+
             };
-            console.log("File has been created");
+            //console.log("File has been created");
+           fs.readFile(`${expName}`, (err, data) => {
+                response.writeHeader(200, {
+                    "Content-Disposition": `attachment; filename = ${expName}`
+                });
+                
+                response.end(data);
+            });
 
         });
     }

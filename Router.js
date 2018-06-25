@@ -23,9 +23,10 @@ function router(request, response) {
             response.writeHead(200, { "Content-Type": "application/json" });
             response.end(JSON.stringify(user));
         } else if (portalUrl[3] === 'export') {
-            let exp = ctrl.export(portalUrl[2]);
+            let exp = ctrl.export(portalUrl[2], response);
 
-            response.end('user export done');
+            
+           // response.end('user export done');
 
 
 
